@@ -1,0 +1,13 @@
+{
+  "name": "AgriLife-Must-Use",
+  "version": "1.0.6",
+  "description": "Functionality useful for all AgriLife sites.",
+  "main": "agrilife-mu.php",
+  "repository": "https://github.com/AgriLife/agriLife-mu",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {},
+  "author": "Zach Watkins",
+  "license": "GPL2+",
+  "readmeFilename": "README.md"
+}
