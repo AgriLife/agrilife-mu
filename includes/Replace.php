@@ -17,14 +17,15 @@ class Replace {
   public function __construct() {
 
     $this->get_sites();
-    $this->print_query();
+    $this->update_widgets();
 
   }
 
   /**
    * Sets the $sites property by pulling from the wp_blogs table.
    *
-   * @since 0.1
+   * @since 1.0.0
+   * @access private
    * @global $wpdb
    */
   private function get_sites() {
@@ -45,27 +46,48 @@ class Replace {
   }
 
   /**
-   * Updates site option in the database for easy access throughout WordPress
+   * Update text widgets to remove image URL protocols
    *
-   * @since 0.1
+   * @since 1.1.0
+   * @access private
    * @uses AgriLife_Site
    */
-  public function print_query() {
+  private function update_widgets() {
 
     global $wpdb;
 
     $sites = $this->sites;
 
     foreach ( $sites as $site ) {
-    	if($site['blog_id'] != 1){
-	    	echo "
-UPDATE wp_" . $site['blog_id'] . "_posts
-SET post_content = ( Replace ( post_content, 'src=\"http:', 'src=\"' ) )
-WHERE  Instr(post_content, 'jpeg') > 0
-  OR Instr(post_content, 'jpg') > 0
-  OR Instr(post_content, 'gif') > 0
-  OR Instr(post_content, 'png') > 0;";
-	    }
+
+      if($site['blog_id'] != 1){
+
+        // Update widget values
+        $widgetvalues = get_blog_option( intval( $site['blog_id'] ), 'widget_text', false );
+
+        if( $widgetvalues !== false && !empty($widgetvalues) ){
+
+          foreach( $widgetvalues as $key=>$value ){
+
+            if( is_array( $value ) ){
+
+              $text = $value['text'];
+
+              $text = str_replace(array('src="http://', 'src="https://'), 'src="//', $text);
+
+              $text = str_replace(array('src=\'http://', 'src=\'https://'), 'src="//', $text);
+
+              $widgetvalues[$key]['text'] = $text;
+
+            }
+
+          }
+
+          update_blog_option( $site['blog_id'], 'widget_text', $widgetvalues );
+
+        }
+
+      }
 
     }
 

@@ -15,8 +15,10 @@ class PostFilter {
      * @return string return custom output for inserted images in posts
      */
   public function remove_protocol($html, $id, $caption, $title, $align, $url) {
+
     // remove protocol
     $newhtml = str_replace(array('http://','https://'), '//', $html);
     return $newhtml;
+
   }
 }

@@ -20,7 +20,10 @@ define( 'AMU_DIR_FILE', __FILE__ );
 
 // Load the plugin assets
 require_once AMU_DIR_PATH . 'includes/PostFilter.php';
-$amu_filter = new PostFilter;
+$amu_postfilter = new PostFilter;
+
+require_once AMU_DIR_PATH . 'includes/WidgetFilter.php';
+$amu_widgetfilter = new WidgetFilter;
 
 require_once AMU_DIR_PATH . 'includes/PostRemoveImageProtocols.php';
 $amu_removeprotocols = new PostRemoveImageProtocols;
