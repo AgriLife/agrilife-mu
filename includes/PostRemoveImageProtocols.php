@@ -45,7 +45,7 @@ class PostRemoveImageProtocols {
         ob_start();
 
         $fields = $this->wpsf;
-        require_once AMU_DIR_PATH . 'views/admin-securetextwidgets';
+        require_once AMU_DIR_PATH . 'views/admin-securetextwidgets.php';
 
         $settings_page = ob_get_contents();
         ob_clean();

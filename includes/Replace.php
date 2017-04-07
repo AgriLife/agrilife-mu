@@ -63,6 +63,7 @@ class Replace {
       if($site['blog_id'] != 1){
 
         // Update widget values
+        // [todo] fix single site installs not being able to update their text widgets due to lack of admin page
         $widgetvalues = get_blog_option( intval( $site['blog_id'] ), 'widget_text', false );
 
         if( $widgetvalues !== false && !empty($widgetvalues) ){

@@ -1,6 +1,6 @@
 {
   "name": "AgriLife-Must-Use",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Functionality useful for all AgriLife sites.",
   "main": "agrilife-mu.php",
   "repository": "https://github.com/AgriLife/agriLife-mu",
