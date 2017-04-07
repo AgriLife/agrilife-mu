@@ -13,4 +13,7 @@ None
 
 ## Development Requirements
 
-None
+To update a site's posts to use protocol-relative URLs, run the following wp-cli commands:
+wp search-replace 'src="http://' 'src="//' 'wp_*posts' --network --include-columns='post_content'
+wp search-replace 'src="https://' 'src="//' 'wp_*posts' --network --include-columns='post_content'
+wp cache flush
