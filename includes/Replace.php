@@ -68,7 +68,7 @@ class Replace {
 
         foreach( $widgetvalues as $key=>$value ){
 
-          if( is_array( $value ) ){
+          if( is_array( $value ) && in_array( 'text', $value ) ){
 
             $text = $value['text'];
 
