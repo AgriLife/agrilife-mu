@@ -60,33 +60,29 @@ class Replace {
 
     foreach ( $sites as $site ) {
 
-      if($site['blog_id'] != 1){
+      // Update widget values
+      // [todo] fix single site installs not being able to update their text widgets due to lack of admin page
+      $widgetvalues = get_blog_option( intval( $site['blog_id'] ), 'widget_text', false );
 
-        // Update widget values
-        // [todo] fix single site installs not being able to update their text widgets due to lack of admin page
-        $widgetvalues = get_blog_option( intval( $site['blog_id'] ), 'widget_text', false );
+      if( $widgetvalues !== false && !empty($widgetvalues) ){
 
-        if( $widgetvalues !== false && !empty($widgetvalues) ){
+        foreach( $widgetvalues as $key=>$value ){
 
-          foreach( $widgetvalues as $key=>$value ){
+          if( is_array( $value ) ){
 
-            if( is_array( $value ) ){
+            $text = $value['text'];
 
-              $text = $value['text'];
+            $text = str_replace(array('src="http://', 'src="https://'), 'src="//', $text);
 
-              $text = str_replace(array('src="http://', 'src="https://'), 'src="//', $text);
+            $text = str_replace(array('src=\'http://', 'src=\'https://'), 'src="//', $text);
 
-              $text = str_replace(array('src=\'http://', 'src=\'https://'), 'src="//', $text);
-
-              $widgetvalues[$key]['text'] = $text;
-
-            }
+            $widgetvalues[$key]['text'] = $text;
 
           }
 
-          update_blog_option( $site['blog_id'], 'widget_text', $widgetvalues );
-
         }
+
+        update_blog_option( $site['blog_id'], 'widget_text', $widgetvalues );
 
       }
 
