@@ -58,6 +58,8 @@ class Replace {
 
     $sites = $this->sites;
 
+    $protocol = defined( 'AMU_SECUREPROTOCOL' ) ? 'https://' : '//';
+
     foreach ( $sites as $site ) {
 
       // Update widget values
@@ -72,9 +74,9 @@ class Replace {
 
             $text = $value['text'];
 
-            $text = str_replace( 'src="http://', 'src="https://', $text );
+            $text = str_replace( "src=\"http://", "src=\"{$protocol}", $text );
 
-            $text = str_replace( 'src=\'http://', 'src=\'https://', $text );
+            $text = str_replace( "src='http://", "src='{$protocol}", $text );
 
             $widgetvalues[$key]['text'] = $text;
 

@@ -17,11 +17,14 @@ class WidgetFilter {
      */
     public function remove_protocol( $instance, $new, $old, $obj ) {
 
+        $protocol = defined( 'AMU_SECUREPROTOCOL' ) ? 'https://' : '//';
+
         if( 'text' === $obj->id_base && !empty( $instance['text'] ) ) {
 
             // Remove image protocol
-            $instance['text'] = str_replace( 'src="http://', 'src="https://', $instance['text'] );
-            $instance['text'] = str_replace( 'src=\'http://', 'src=\'https://', $instance['text'] );
+            $instance['text'] = str_replace( "src=\"http://", "src=\"{$protocol}", $instance['text'] );
+
+            $instance['text'] = str_replace( "src='http://", "src='{$protocol}", $instance['text'] );
 
         }
 
