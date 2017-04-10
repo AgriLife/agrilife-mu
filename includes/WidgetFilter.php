@@ -20,8 +20,8 @@ class WidgetFilter {
         if( 'text' === $obj->id_base && !empty( $instance['text'] ) ) {
 
             // Remove image protocol
-            $instance['text'] = str_replace(array('src="http://', 'src="https://'), 'src="//', $instance['text']);
-            $instance['text'] = str_replace(array('src=\'http://', 'src=\'https://'), 'src=\'//', $instance['text']);
+            $instance['text'] = str_replace( 'src="http://', 'src="https://', $instance['text'] );
+            $instance['text'] = str_replace( 'src=\'http://', 'src=\'https://', $instance['text'] );
 
         }
 

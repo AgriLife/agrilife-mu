@@ -18,7 +18,7 @@ class PostFilter {
      */
   public function remove_protocol($html, $id, $caption, $title, $align, $url) {
 
-    $newhtml = str_replace(array('http://','https://'), '//', $html);
+    $newhtml = str_replace( 'http://', 'https://', $html );
     return $newhtml;
 
   }
@@ -35,8 +35,8 @@ class PostFilter {
     preg_match_all('/srcset="([^"]+)"/i', $content, $matches);
 
     foreach( $matches[1] as $key=>$srcset ){
-        $newsrcset = str_replace( 'http://', '//', $srcset);
-        $content = str_replace( $matches[0][$key], "srcset=\"{$newsrcset}\"", $content);
+        $newsrcset = str_replace( 'http://', 'https://', $srcset );
+        $content = str_replace( $matches[0][$key], "srcset=\"{$newsrcset}\"", $content );
     }
 
     return $content;

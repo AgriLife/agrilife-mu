@@ -72,9 +72,9 @@ class Replace {
 
             $text = $value['text'];
 
-            $text = str_replace(array('src="http://', 'src="https://'), 'src="//', $text);
+            $text = str_replace( 'src="http://', 'src="https://', $text );
 
-            $text = str_replace(array('src=\'http://', 'src=\'https://'), 'src="//', $text);
+            $text = str_replace( 'src=\'http://', 'src=\'https://', $text );
 
             $widgetvalues[$key]['text'] = $text;
 
