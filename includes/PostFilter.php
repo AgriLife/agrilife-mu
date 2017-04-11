@@ -18,7 +18,11 @@ class PostFilter {
      */
   public function remove_protocol($html, $id, $caption, $title, $align, $url) {
 
-    $protocol = defined( 'AMU_SECUREPROTOCOL' ) ? 'https://' : '//';
+    $protocol = '//';
+
+    if( defined( 'AMU_SECUREPROTOCOL' ) ){
+        $protocol = AMU_SECUREPROTOCOL ? 'https://' : 'http://';
+    }
 
     $newhtml = str_replace( 'http://', $protocol, $html );
 
@@ -35,7 +39,11 @@ class PostFilter {
      */
   public function correct_srcset_attributes( $content ) {
 
-    $protocol = defined( 'AMU_SECUREPROTOCOL' ) ? 'https://' : '//';
+    $protocol = '//';
+
+    if( defined( 'AMU_SECUREPROTOCOL' ) ){
+        $protocol = AMU_SECUREPROTOCOL ? 'https://' : 'http://';
+    }
 
     preg_match_all('/srcset="([^"]+)"/i', $content, $matches);
 

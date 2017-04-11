@@ -58,7 +58,11 @@ class Replace {
 
     $sites = $this->sites;
 
-    $protocol = defined( 'AMU_SECUREPROTOCOL' ) ? 'https://' : '//';
+    $protocol = '//';
+
+    if( defined( 'AMU_SECUREPROTOCOL' ) ){
+        $protocol = AMU_SECUREPROTOCOL ? 'https://' : 'http://';
+    }
 
     foreach ( $sites as $site ) {
 

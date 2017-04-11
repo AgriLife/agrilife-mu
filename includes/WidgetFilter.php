@@ -17,7 +17,11 @@ class WidgetFilter {
      */
     public function remove_protocol( $instance, $new, $old, $obj ) {
 
-        $protocol = defined( 'AMU_SECUREPROTOCOL' ) ? 'https://' : '//';
+        $protocol = '//';
+
+        if( defined( 'AMU_SECUREPROTOCOL' ) ){
+            $protocol = AMU_SECUREPROTOCOL ? 'https://' : 'http://';
+        }
 
         if( 'text' === $obj->id_base && !empty( $instance['text'] ) ) {
 
