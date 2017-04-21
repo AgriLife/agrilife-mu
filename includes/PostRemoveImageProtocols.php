@@ -25,10 +25,10 @@ class PostRemoveImageProtocols {
 
         add_submenu_page(
             'sites.php',
-            'Secure Text Widgets',
-            'Secure Text Widgets',
+            'Secure Content',
+            'Secure Content',
             'manage_network',
-            'amu-secure-text-widgets',
+            'amu-secure-content',
             array( $this, 'plugin_admin_page' )
         );
 
@@ -45,7 +45,7 @@ class PostRemoveImageProtocols {
         ob_start();
 
         $fields = $this->wpsf;
-        require_once AMU_DIR_PATH . 'views/admin-securetextwidgets.php';
+        require_once AMU_DIR_PATH . 'views/admin-securecontent.php';
 
         $settings_page = ob_get_contents();
         ob_clean();

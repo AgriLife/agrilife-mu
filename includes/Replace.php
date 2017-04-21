@@ -18,6 +18,7 @@ class Replace {
 
     $this->get_sites();
     $this->update_widgets();
+    $this->output_commands();
 
   }
 
@@ -61,7 +62,7 @@ class Replace {
     $protocol = '//';
 
     if( defined( 'AMU_SECUREPROTOCOL' ) ){
-        $protocol = AMU_SECUREPROTOCOL ? 'https://' : 'http://';
+      $protocol = AMU_SECUREPROTOCOL ? 'https://' : 'http://';
     }
 
     foreach ( $sites as $site ) {
@@ -72,27 +73,63 @@ class Replace {
 
       if( $widgetvalues !== false && !empty($widgetvalues) ){
 
+        $needsupdate = false;
+
         foreach( $widgetvalues as $key=>$value ){
 
           if( is_array( $value ) && in_array( 'text', $value ) ){
 
             $text = $value['text'];
+            $pattern = '/src=(\'|")http:\/\//';
 
-            $text = str_replace( "src=\"http://", "src=\"{$protocol}", $text );
+            if( preg_match( $pattern, $text ) == 1 && $protocol != 'http://' ){
 
-            $text = str_replace( "src='http://", "src='{$protocol}", $text );
+              $needsupdate = true;
 
-            $widgetvalues[$key]['text'] = $text;
+              $text = preg_replace( $pattern, "src=$1{$protocol}", $text );
+
+              $widgetvalues[$key]['text'] = $text;
+
+            }
 
           }
 
         }
 
-        update_blog_option( $site['blog_id'], 'widget_text', $widgetvalues );
+        if( $needsupdate )
+          update_blog_option( $site['blog_id'], 'widget_text', $widgetvalues );
 
       }
 
     }
+
+  }
+
+  /**
+   * Output SQL commands that will secure the network's database entries
+   *
+   * @since 1.1.4
+   * @access private
+   * @uses AgriLife_Site
+   */
+  private function output_commands() {
+
+    $sites = $this->sites;
+
+    $sql_commands = '';
+
+    foreach ( $sites as $site ) {
+
+      // Build SQL commands to update siteurl and home rows in wp_options
+      $sql_commands .= str_replace('blogid', $site['blog_id'], "UPDATE `wp_blogid_options`
+SET `option_value` = ( Replace (option_value, 'http://', 'https://') )
+WHERE `wp_blogid_options`.`option_name` = 'siteurl'
+OR `wp_blogid_options`.`option_name` = 'home';
+");
+
+    }
+
+    echo $sql_commands;
 
   }
 
