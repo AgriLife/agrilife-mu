@@ -21,7 +21,7 @@ class PostRemoveImageProtocols {
      */
     public function plugin_network_admin_menu() {
 
-        $this->wpsf = new Settings( $this->path . 'lib/plugin-settings.php' );
+        $this->wpsf = new Settings( AMU_DIR_PATH . 'lib/plugin-settings.php' );
 
         add_submenu_page(
             'sites.php',
