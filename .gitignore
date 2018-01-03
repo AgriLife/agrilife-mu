@@ -1,5 +1,3 @@
 # Preprocessing files
 node_modules
-.sass-cache
-css/aglinks.css
 *.psd

@@ -4,7 +4,12 @@
   "description": "Functionality useful for all AgriLife sites.",
   "main": "agrilife-mu.php",
   "repository": "https://github.com/AgriLife/agriLife-mu",
-  "dependencies": {},
+  "engines": {
+    "node": "4.0.0"
+  },
+  "dependencies": {
+    "grunt": "~0.4.2"
+  },
   "devDependencies": {},
   "scripts": {},
   "author": "Zach Watkins",
